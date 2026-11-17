@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapLibreMap, setWorkerUrl } from "maplibre-gl";
+import { MapLibreMap, setWorkerUrl, NavigationControl } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 setWorkerUrl(workerUrl);
 
@@ -15,6 +15,13 @@ function MapView() {
 			center: [-74.292, 40.992],
 			zoom: 11,
 		});
+		map.current.addControl(
+			new NavigationControl({
+				visualizePitch: true,
+			}),
+			"top-right",
+		);
+
 		return () => {
 			map.current?.remove();
 			map.current = null;
